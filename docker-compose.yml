@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  backend:
+    build: ./
+    container_name: monosage
+    ports:
+      - '8080:8080'
+    depends_on:
+      - db
+    networks:
+      - monosage
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD: hardstone349
+      POSTGRES_DB: monosage
+    networks:
+      - monosage
+
+networks:
+  monosage:
+    driver: bridge
