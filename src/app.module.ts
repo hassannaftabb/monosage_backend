@@ -7,7 +7,8 @@ import { OrganizationsModule } from './organizations/organizations.module';
 import { UsersModule } from './users/users.module';
 import { RolesModule } from './common/roles/roles.module';
 import { AuthModule } from './auth/auth.module';
-import { AccountingModule } from './services/accounting/accounting.module';
+import { AccountingModule } from './modules/accounting/accounting.module';
+import { SalesModule } from './modules/sales/sales.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { AccountingModule } from './services/accounting/accounting.module';
     RolesModule,
     AuthModule,
     AccountingModule,
+    SalesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
