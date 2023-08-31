@@ -9,6 +9,7 @@ import { RolesModule } from './common/roles/roles.module';
 import { AuthModule } from './auth/auth.module';
 import { AccountingModule } from './modules/accounting/accounting.module';
 import { SalesModule } from './modules/sales/sales.module';
+import { JobModule } from './modules/jobs/job.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { SalesModule } from './modules/sales/sales.module';
     AuthModule,
     AccountingModule,
     SalesModule,
+    JobModule,
   ],
   controllers: [AppController],
   providers: [AppService],

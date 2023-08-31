@@ -38,13 +38,13 @@ export class Estimate {
   @Column()
   discountType: string;
 
-  @Column()
+  @Column({nullable: true})
   tax1: number;
 
   @Column()
   tax1Type: string;
 
-  @Column()
+  @Column({nullable: true})
   tax2: number;
 
   @Column()

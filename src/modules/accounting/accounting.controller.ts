@@ -15,8 +15,10 @@ import { IncomeDTO } from './dto/create-income.dto';
 import { RecurringExpenseDTO } from './dto/create-recurringexpense.dto';
 import { InvoiceDTO } from './dto/create-invoice.dto';
 import { PaymentDTO } from './dto/create-payment.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('accounting')
+@ApiTags('Accounting CRUD APIs')
 export class AccountingController {
   constructor(private readonly accountingService: AccountingService) {}
 
