@@ -40,7 +40,7 @@ export class SalesController {
   }
 
   // Proposals
-  @Post()
+  @Post('proposals')
   createProposal(@Body() proposalDTO: ProposalDTO) {
     return this.salesService.createProposal(proposalDTO);
   }
@@ -50,7 +50,7 @@ export class SalesController {
     return this.salesService.findAllProposal();
   }
 
-  @Get('organization/proposal/all')
+  @Get('organization/proposals/all')
   getAllProposals(@Query('organizationId') organizationId: number) {
       return this.salesService.getAllProposalsByOrganizationId(
           organizationId,
