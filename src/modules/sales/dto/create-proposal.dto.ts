@@ -4,17 +4,17 @@ export class ProposalDTO {
     @IsString()
     readonly author: string;
 
-    @IsNumber()
-    readonly template: number;
+    @IsString()
+    readonly template: string;
 
     @IsNumber()
     readonly organizationId: number;
 
-    @IsNumber()
-    readonly contact: number;
+    @IsString()
+    readonly contact: string;
 
     @IsString()
-    readonly jobPostURL: string;
+    readonly jobPostUrl: string;
 
     @IsString()
     readonly proposalDate: string;

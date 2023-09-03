@@ -12,19 +12,19 @@ export class Proposal {
     author: string;
 
     @Column()
-    template: number;
+    template: string;
 
     @Column()
-    contact: number;
+    contact: string;
 
     @Column()
-    jobPostURL: string;
+    jobPostUrl: string;
 
     @Column()
     proposalDate: string;
   
-    @Column('json', { nullable: true })
-    tags: any;
+    @Column()
+    tags: string;
 
     @Column()
     jobPostContent: string;
