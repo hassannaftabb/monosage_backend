@@ -15,7 +15,7 @@ export class ProposalTemplate {
     name: string;
 
     @Column()
-    content: string;
+    description: string;
 
     @Column({default: false})
     isDeleted: boolean;

@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/
 import { JobService } from "./job.service";
 import { ProposalTemplateDTO } from "./dto/create-proposal-template.dto";
 
-@Controller('job')
+@Controller('jobs')
 export class JobController {
     constructor(private readonly jobService: JobService) {}
 

@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { AccountingModule } from './modules/accounting/accounting.module';
 import { SalesModule } from './modules/sales/sales.module';
 import { JobModule } from './modules/jobs/job.module';
+import { TaskModule } from './modules/tasks/task.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { JobModule } from './modules/jobs/job.module';
     AccountingModule,
     SalesModule,
     JobModule,
+    TaskModule
   ],
   controllers: [AppController],
   providers: [AppService],

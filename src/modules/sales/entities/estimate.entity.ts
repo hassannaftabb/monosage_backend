@@ -36,7 +36,7 @@ export class Estimate {
     tax1Type: string;
 
     @Column({nullable: true})
-    tax2Value: number;
+    tax2: number;
 
     @Column()
     tax2Type: string;

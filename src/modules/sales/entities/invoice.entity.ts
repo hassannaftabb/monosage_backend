@@ -37,7 +37,7 @@ export class Invoice {
     tax1Type: string;
 
     @Column({nullable: true})
-    tax2Value: number;
+    tax2: number;
 
     @Column()
     tax2Type: string;

@@ -17,7 +17,7 @@ export class Pipeline {
     @Column('json', { nullable: true })
     stages: any;
     
-    @Column()
+    @Column({default: true})
     isActive: boolean;
 
     @Column({default: false})

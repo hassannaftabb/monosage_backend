@@ -7,12 +7,6 @@ export class PipelineDTO {
   @IsString()
   description: string;
 
-  @IsNotEmpty()
-  stages: [object];
-
   @IsNumber()
   organizationId: number;
-
-  @IsBoolean()
-  isActive: boolean;
 }

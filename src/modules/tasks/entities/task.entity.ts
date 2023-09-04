@@ -9,6 +9,9 @@ export class Task {
     taskNumber: string;
 
     @Column()
+    title: string;
+
+    @Column()
     organizationId: number;
 
     @Column()
@@ -19,6 +22,33 @@ export class Task {
 
     @Column()
     taskType: string;
+
+    @Column()
+    employee: string;
+
+    @Column()
+    priority: string;
+
+    @Column()
+    size: string;
+
+    @Column()
+    tags: string;
+
+    @Column()
+    dueDate: string;
+
+    @Column()
+    estimateDays: string;
+
+    @Column()
+    estimateHours: string;
+
+    @Column()
+    estimateMinutes: string;
+
+    @Column()
+    terms: string;
 
     @Column({default: false})
     isDeleted: boolean;

@@ -1,36 +1,65 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
 import { TaskService } from "./task.service";
 import { TaskDTO } from "./dto/create-task.dto";
+import { TeamTaskDTO } from "./dto/create-team-task.dto";
 
-@Controller('task')
+@Controller('tasks')
 export class TaskController {
     constructor(private readonly taskService: TaskService) {}
 
-    //Tasks
-    @Post('proposal-template')
-    createTask(@Body() proposalTempalte: TaskDTO) {
-        // return this.taskService.createTask(proposalTempalte);
+    // Tasks
+    @Post('task')
+    createTask(@Body() taskDto: TaskDTO) {
+        return this.taskService.createTask(taskDto);
     }
 
-    @Get('organization/proposal-template/all')
+    @Get('organization/task/all')
     getAllTasks(@Query('organizationId') organizationId: number) {
-        // return this.taskService.getAllTasksByOrganizationId(
-        //     organizationId,
-        // );
+        return this.taskService.getAllTasksByOrganizationId(
+            organizationId,
+        );
     }
 
-    @Get('proposal-template/:id')
+    @Get('task/:id')
     getTask(@Param('id') id: number) {
         return this.taskService.getTask(id);
     }
 
-    @Delete('proposal-template/:id')
+    @Delete('task/:id')
     deleteTask(@Param('id') id: number) {
         return this.taskService.deleteTask(id);
     }
 
-    @Put('proposal-template/:id')
-    updateTask(@Param('id') id: number, @Body() proposalTempalte: TaskDTO) {
-        return this.taskService.updateTask(id, proposalTempalte);
+    @Put('task/:id')
+    updateTask(@Param('id') id: number, @Body() taskDto: TaskDTO) {
+        return this.taskService.updateTask(id, taskDto);
+    }
+
+    // Team Tasks
+    @Post('team-tasks')
+    createTeamTask(@Body() teamTaskDto: TeamTaskDTO) {
+        return this.taskService.createTeamTask(teamTaskDto);
+    }
+
+    @Get('organization/task/all')
+    getAllTeamTasks(@Query('organizationId') organizationId: number) {
+        return this.taskService.getAllTeamTasksByOrganizationId(
+            organizationId,
+        );
+    }
+
+    @Get('team-tasks/:id')
+    getTeamTask(@Param('id') id: number) {
+        return this.taskService.getTeamTask(id);
+    }
+
+    @Delete('team-tasks/:id')
+    deleteTeamTask(@Param('id') id: number) {
+        return this.taskService.deleteTeamTask(id);
+    }
+
+    @Put('team-tasks/:id')
+    updateTeamTask(@Param('id') id: number, @Body() teamTaskDto: TeamTaskDTO) {
+        return this.taskService.updateTeamTask(id, teamTaskDto);
     }
 }

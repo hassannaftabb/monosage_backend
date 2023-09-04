@@ -11,5 +11,5 @@ export class ProposalTemplateDTO {
   name: string;
 
   @IsString()
-  content: string;
+  description: string;
 }

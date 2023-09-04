@@ -157,29 +157,29 @@ export class SalesController {
   }
 
   // Pipeline
-  @Post('payment')
-  createPipeline(@Body() paymentDto: PipelineDTO) {
-    return this.salesService.createPipeline(paymentDto);
+  @Post('pipeline')
+  createPipeline(@Body() pipelineDto: PipelineDTO) {
+    return this.salesService.createPipeline(pipelineDto);
   }
 
-  @Get('organization/payment/all')
+  @Get('organization/pipeline/all')
   getAllPipelines(@Query('organizationId') organizationId: number) {
     return this.salesService.getAllPipelinesByOrganizationId(
       organizationId,
     );
   }
 
-  @Get('payment/:id')
+  @Get('pipeline/:id')
   getPipeline(@Param('id') id: number) {
     return this.salesService.getPipeline(id);
   }
 
-  @Put('payment/:id')
-  updatePipeline(@Param('id') id: number, @Body() paymentDto: PipelineDTO) {
-    return this.salesService.updatePipeline(id, paymentDto);
+  @Put('pipeline/:id')
+  updatePipeline(@Param('id') id: number, @Body() pipelineDto: PipelineDTO) {
+    return this.salesService.updatePipeline(id, pipelineDto);
   }
 
-  @Delete('payment/:id')
+  @Delete('pipeline/:id')
   deletePipeline(@Param('id') id: number) {
     return this.salesService.deletePipeline(id);
   }
