@@ -8,7 +8,7 @@ export class Task {
     @Column()
     taskNumber: string;
 
-    @Column()
+    @Column({nullable: true})
     title: string;
 
     @Column()
