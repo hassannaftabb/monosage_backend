@@ -1,6 +1,11 @@
-import { Employee } from "src/modules/employees/entities/employee.entity";
 import { Column, CreateDateColumn, Entity, JoinTable, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+
+import { Employee } from "src/modules/employees/entities/employee.entity";
 import { Department } from "./department.entity";
+import { Vendor } from "./vendor.entity";
+import { EmploymentType } from "./employment-type.entity";
+import { Team } from "./team.entity";
+import { Equipment } from "./equipment.entity";
 
 @Entity()
 export class Tag {
@@ -22,7 +27,7 @@ export class Tag {
     @Column()
     description: string;
 
-    @Column({default: false})
+    @Column({ default: false })
     isDeleted: boolean;
 
     @JoinTable()
@@ -32,6 +37,22 @@ export class Tag {
     @JoinTable()
     @ManyToOne(() => Department, (department) => department.tags)
     department?: Department;
+
+    @JoinTable()
+    @ManyToOne(() => Team, (team) => team.tags)
+    team?: Team;
+
+    @JoinTable()
+    @ManyToOne(() => Vendor, (vendor) => vendor.tags)
+    vendor?: Vendor;
+
+    @JoinTable()
+    @ManyToOne(() => EmploymentType, (employmentType) => employmentType.tags)
+    employmentType: EmploymentType;
+
+    @JoinTable()
+    @ManyToOne(() => Equipment, (equipment) => equipment.tags)
+    equipment: Equipment;
 
     @CreateDateColumn()
     createdDate: string;

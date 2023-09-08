@@ -13,12 +13,38 @@ import { RolesService } from 'src/common/roles/roles.service';
 import { User } from 'src/users/entities/user.entity';
 import { AddUserDto } from 'src/users/dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
+import { TagDTO } from './dto/create-tag.dto';
+import { Tag } from './entities/tag.entity';
+import { Vendor } from './entities/vendor.entity';
+import { VendorDTO } from './dto/create-vendor.dto';
+import { DocumentDTO } from './dto/create-document.dto';
+import { Document } from './entities/document.entity';
+import { EmploymentTypeDTO } from './dto/create-employment-type.dto';
+import { EmploymentType } from './entities/employment-type.entity';
+import { TeamDTO } from './dto/create-team.dto';
+import { Team } from './entities/team.entity';
 
 @Injectable()
 export class OrganizationsService {
   constructor(
     @InjectRepository(Organization)
     private readonly organizationRepository: Repository<Organization>,
+
+    @InjectRepository(Tag)
+    private readonly tagRepository: Repository<Tag>,
+
+    @InjectRepository(Vendor)
+    private readonly vendorRepository: Repository<Vendor>,
+
+    @InjectRepository(Document)
+    private readonly documentRepository: Repository<Document>,
+
+    @InjectRepository(EmploymentType)
+    private readonly employmentTypeRepository: Repository<EmploymentType>,
+
+    @InjectRepository(Team)
+    private readonly teamRepository: Repository<Team>,
+    
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
 
@@ -117,5 +143,187 @@ export class OrganizationsService {
 
   remove(id: number) {
     return `This action removes a #${id} organization`;
+  }
+
+  // Tags
+  async createTag(tagDto: TagDTO): Promise<Tag> {
+      const tag = this.tagRepository.create(tagDto);
+      await this.tagRepository.save(tag);
+      return tag;
+  }
+
+  async getAllTagsByOrganizationId(organizationId: number): Promise<Tag[]> {
+      return this.tagRepository.find({
+          where: {
+              organizationId,
+              isDeleted: false
+          }
+      });
+  }
+
+  async getTag(id: number): Promise<Tag> {
+      const tag = this.tagRepository.findOneBy({ id });
+      if (!tag) throw new NotFoundException(`Vendor with ID ${id} not found`);
+      return tag;
+  }
+
+  async deleteTag(id: number) {
+      const result = await this.tagRepository.delete(id);
+      if (result.affected === 0)
+        throw new NotFoundException(`Vendor with ID ${id} not found`);
+  }
+
+  async updateTag(id: number, tagDto: TagDTO) {
+      const template = await this.getTag(id);
+      for (const key in tagDto) template[key] = tagDto[key];
+      await this.tagRepository.save(template);
+      return template;
+  }
+
+  // Vendors
+  async createVendor(vendorDto: VendorDTO): Promise<Vendor> {
+    const newVendor = new Vendor;
+    const vendor = this.vendorRepository.create(newVendor);
+    await this.vendorRepository.save(vendor);
+    return vendor;
+  }
+
+  async getAllVendorsByOrganizationId(organizationId: number): Promise<Vendor[]> {
+      return this.vendorRepository.find({
+          where: {
+              organizationId,
+              isDeleted: false
+          }
+      });
+  }
+
+  async getVendor(id: number): Promise<Vendor> {
+      const vendor = this.vendorRepository.findOneBy({ id });
+      if (!vendor) throw new NotFoundException(`Vendor with ID ${id} not found`);
+      return vendor;
+  }
+
+  async deleteVendor(id: number) {
+      const result = await this.vendorRepository.delete(id);
+      if (result.affected === 0)
+        throw new NotFoundException(`Vendor with ID ${id} not found`);
+  }
+
+  async updateVendor(id: number, vendorDto: VendorDTO) {
+      const vendor = await this.getVendor(id);
+      for (const key in vendorDto) vendor[key] = vendorDto[key];
+      await this.vendorRepository.save(vendor);
+      return vendor;
+  }
+
+  // Documents
+  async createDocument(documentDto: DocumentDTO, file: Express.Multer.File): Promise<Document> {
+    documentDto.file = file;
+    documentDto.url = file.path;
+    const document = this.documentRepository.create(documentDto);
+    await this.documentRepository.save(document);
+    return document;
+  }
+
+  async getAllDocumentsByOrganizationId(organizationId: number): Promise<Document[]> {
+      return this.documentRepository.find({
+          where: {
+              organizationId,
+              isDeleted: false
+          }
+      });
+  }
+
+  async getDocument(id: number): Promise<Document> {
+      const document = this.documentRepository.findOneBy({ id });
+      if (!document) throw new NotFoundException(`Document with ID ${id} not found`);
+      return document;
+  }
+
+  async deleteDocument(id: number) {
+      const result = await this.documentRepository.delete(id);
+      if (result.affected === 0)
+        throw new NotFoundException(`Document with ID ${id} not found`);
+  }
+
+  async updateDocument(id: number, documentDto: DocumentDTO) {
+      const document = await this.getDocument(id);
+      for (const key in documentDto) document[key] = documentDto[key];
+      await this.documentRepository.save(document);
+      return document;
+  }
+
+  // EmploymentTypes
+  async createEmploymentType(employmentTypeDto: EmploymentTypeDTO): Promise<EmploymentType> {
+    const newEmploymentType = new EmploymentType;
+    const employmentType = this.employmentTypeRepository.create(newEmploymentType);
+    await this.employmentTypeRepository.save(employmentType);
+    return employmentType;
+  }
+
+  async getAllEmploymentTypesByOrganizationId(organizationId: number): Promise<EmploymentType[]> {
+      return this.employmentTypeRepository.find({
+          where: {
+              organizationId,
+              isDeleted: false
+          }
+      });
+  }
+
+  async getEmploymentType(id: number): Promise<EmploymentType> {
+      const employmentType = this.employmentTypeRepository.findOneBy({ id });
+      if (!employmentType) throw new NotFoundException(`Employment Type with ID ${id} not found`);
+      return employmentType;
+  }
+
+  async deleteEmploymentType(id: number) {
+      const result = await this.employmentTypeRepository.delete(id);
+      if (result.affected === 0)
+        throw new NotFoundException(`Employment Type with ID ${id} not found`);
+  }
+
+  async updateEmploymentType(id: number, employmentTypeDto: EmploymentTypeDTO) {
+      const employmentType = await this.getEmploymentType(id);
+      for (const key in employmentTypeDto) employmentType[key] = employmentTypeDto[key];
+      await this.employmentTypeRepository.save(employmentType);
+      return employmentType;
+  }
+
+  // Teams
+  async createTeam(teamDto: TeamDTO, file: Express.Multer.File): Promise<Team> {
+    const newTeam = new Team;
+    teamDto.file = file;
+    teamDto.url = file.path;
+    const team = this.teamRepository.create(newTeam);
+    await this.teamRepository.save(team);
+    return team;
+  }
+
+  async getAllTeamsByOrganizationId(organizationId: number): Promise<Team[]> {
+      return this.teamRepository.find({
+          where: {
+              organizationId,
+              isDeleted: false
+          }
+      });
+  }
+
+  async getTeam(id: number): Promise<Team> {
+      const team = this.teamRepository.findOneBy({ id });
+      if (!team) throw new NotFoundException(`Employment Type with ID ${id} not found`);
+      return team;
+  }
+
+  async deleteTeam(id: number) {
+      const result = await this.teamRepository.delete(id);
+      if (result.affected === 0)
+        throw new NotFoundException(`Employment Type with ID ${id} not found`);
+  }
+
+  async updateTeam(id: number, teamDto: TeamDTO) {
+      const team = await this.getTeam(id);
+      for (const key in teamDto) team[key] = teamDto[key];
+      await this.teamRepository.save(team);
+      return team;
   }
 }
