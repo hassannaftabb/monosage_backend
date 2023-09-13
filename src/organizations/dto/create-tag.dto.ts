@@ -1,4 +1,4 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsString } from 'class-validator';
 
 export class TagDTO {
     @IsString()
@@ -10,7 +10,7 @@ export class TagDTO {
     @IsString()
     tagColor: string;
 
-    @IsString()
+    @IsBoolean()
     tenantLevel: boolean;
     
     @IsString()

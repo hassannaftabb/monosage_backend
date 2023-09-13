@@ -14,6 +14,10 @@ import { Document } from './entities/document.entity';
 import { Vendor } from './entities/vendor.entity';
 import { Employee } from 'src/modules/employees/entities/employee.entity';
 import { Department } from './entities/department.entity';
+import { EmploymentType } from './entities/employment-type.entity';
+import { Team } from './entities/team.entity';
+import { Equipment } from './entities/equipment.entity';
+import { Project } from './entities/project.entity';
 
 @Module({
   imports: [
@@ -21,7 +25,20 @@ import { Department } from './entities/department.entity';
       rootPath: join(__dirname, '..'),
     }),
     RolesModule,
-    TypeOrmModule.forFeature([Role, Organization, User, Tag, Document, Vendor, Employee, Department]),
+    TypeOrmModule.forFeature([
+      Role, 
+      Organization, 
+      User, 
+      Tag, 
+      Document, 
+      Vendor, 
+      Employee, 
+      Department, 
+      EmploymentType, 
+      Team, 
+      Equipment, 
+      Project
+    ]),
     UsersModule,
   ],
   controllers: [OrganizationsController],

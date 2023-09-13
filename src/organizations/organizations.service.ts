@@ -23,6 +23,8 @@ import { EmploymentTypeDTO } from './dto/create-employment-type.dto';
 import { EmploymentType } from './entities/employment-type.entity';
 import { TeamDTO } from './dto/create-team.dto';
 import { Team } from './entities/team.entity';
+import { ProjectDTO } from './dto/create-project.dto';
+import { Project } from './entities/project.entity';
 
 @Injectable()
 export class OrganizationsService {
@@ -44,6 +46,9 @@ export class OrganizationsService {
 
     @InjectRepository(Team)
     private readonly teamRepository: Repository<Team>,
+
+    @InjectRepository(Project)
+    private readonly projectRepository: Repository<Project>,
     
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
@@ -325,5 +330,43 @@ export class OrganizationsService {
       for (const key in teamDto) team[key] = teamDto[key];
       await this.teamRepository.save(team);
       return team;
+  }
+
+  // Projects
+  async createProject(projectDto: ProjectDTO, file: Express.Multer.File): Promise<Project> {
+    projectDto.file = file;
+    projectDto.url = file.path;
+    console.log(projectDto);
+    const project = this.projectRepository.create(projectDto);
+    await this.projectRepository.save(project);
+    return project;
+  }
+
+  async getAllProjectsByOrganizationId(organizationId: number): Promise<Project[]> {
+      return this.projectRepository.find({
+          where: {
+              organizationId,
+              isDeleted: false
+          }
+      });
+  }
+
+  async getProject(id: number): Promise<Project> {
+      const project = this.projectRepository.findOneBy({ id });
+      if (!project) throw new NotFoundException(`Project with ID ${id} not found`);
+      return project;
+  }
+
+  async deleteProject(id: number) {
+      const result = await this.projectRepository.delete(id);
+      if (result.affected === 0)
+        throw new NotFoundException(`Project with ID ${id} not found`);
+  }
+
+  async updateProject(id: number, projectDto: ProjectDTO) {
+      const project = await this.getProject(id);
+      for (const key in projectDto) project[key] = projectDto[key];
+      await this.projectRepository.save(project);
+      return project;
   }
 }

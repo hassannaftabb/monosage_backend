@@ -26,6 +26,7 @@ import { DocumentDTO } from './dto/create-document.dto';
 import { diskStorage } from 'multer';
 import { EmploymentTypeDTO } from './dto/create-employment-type.dto';
 import { TeamDTO } from './dto/create-team.dto';
+import { ProjectDTO } from './dto/create-project.dto';
 
 @Controller('organizations')
 @ApiTags('Organization CRUD APIs')
@@ -237,5 +238,46 @@ export class OrganizationsController {
   @Put('team/:id')
   updateTeam(@Param('id') id: number, @Body() teamDto: TeamDTO) {
       return this.organizationsService.updateTeam(id, teamDto);
+  }
+
+  // Projects
+  @Post('project')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: 'public/projects',
+        filename: (req, file, cb) => {
+          cb(null, file.originalname);
+        },
+      }),
+    })
+  )
+  createProject(
+    @Body() projectDto: ProjectDTO,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+      return this.organizationsService.createProject(projectDto, file);
+  }
+
+  @Get('organization/project/all')
+  getAllProjects(@Query('organizationId') organizationId: number) {
+      return this.organizationsService.getAllProjectsByOrganizationId(
+          organizationId,
+      );
+  }
+
+  @Get('project/:id')
+  getProject(@Param('id') id: number) {
+      return this.organizationsService.getProject(id);
+  }
+
+  @Delete('project/:id')
+  deleteProject(@Param('id') id: number) {
+      return this.organizationsService.deleteProject(id);
+  }
+
+  @Put('project/:id')
+  updateProject(@Param('id') id: number, @Body() projectDto: ProjectDTO) {
+      return this.organizationsService.updateProject(id, projectDto);
   }
 }
