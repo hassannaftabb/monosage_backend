@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, JoinTable, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinTable, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Tag } from "./tag.entity";
+import { Lead } from "src/modules/contacts/entities/lead.entity";
 
 @Entity()
 export class Project {
@@ -54,6 +55,10 @@ export class Project {
     // @JoinTable()
     // @OneToMany(() => Tag, (tags) => tags.equipment)
     // tags?: Tag[];
+
+    @JoinTable()
+    @OneToOne(() => Lead, (lead) => lead.project)
+    lead?: Lead[];
 
     @Column({ default: false })
     isOpenSource: boolean;

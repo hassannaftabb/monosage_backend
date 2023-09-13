@@ -6,6 +6,7 @@ import { Vendor } from "./vendor.entity";
 import { EmploymentType } from "./employment-type.entity";
 import { Team } from "./team.entity";
 import { Equipment } from "./equipment.entity";
+import { Lead } from "src/modules/contacts/entities/lead.entity";
 
 @Entity()
 export class Tag {
@@ -33,6 +34,10 @@ export class Tag {
     @JoinTable()
     @ManyToOne(() => Employee, (employee) => employee.tags)
     employee?: Employee;
+
+    // @JoinTable()
+    // @ManyToOne(() => Lead, (lead) => lead.tags)
+    // lead?: Lead;
 
     @JoinTable()
     @ManyToOne(() => Department, (department) => department.tags)

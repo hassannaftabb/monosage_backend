@@ -11,6 +11,7 @@ import { AccountingModule } from './modules/accounting/accounting.module';
 import { SalesModule } from './modules/sales/sales.module';
 import { JobModule } from './modules/jobs/job.module';
 import { TaskModule } from './modules/tasks/task.module';
+import { ContactModule } from './modules/contacts/contact.module';
 
 @Module({
   imports: [
@@ -36,7 +37,8 @@ import { TaskModule } from './modules/tasks/task.module';
     AccountingModule,
     SalesModule,
     JobModule,
-    TaskModule
+    TaskModule,
+    ContactModule
   ],
   controllers: [AppController],
   providers: [AppService],

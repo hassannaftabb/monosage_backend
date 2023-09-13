@@ -18,6 +18,7 @@ import { EmploymentType } from './entities/employment-type.entity';
 import { Team } from './entities/team.entity';
 import { Equipment } from './entities/equipment.entity';
 import { Project } from './entities/project.entity';
+import { Lead } from 'src/modules/contacts/entities/lead.entity';
 
 @Module({
   imports: [
@@ -37,11 +38,13 @@ import { Project } from './entities/project.entity';
       EmploymentType, 
       Team, 
       Equipment, 
-      Project
+      Project,
+      Lead
     ]),
     UsersModule,
   ],
   controllers: [OrganizationsController],
   providers: [OrganizationsService],
+  exports: [OrganizationsService]
 })
 export class OrganizationsModule {}
